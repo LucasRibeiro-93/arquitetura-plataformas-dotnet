@@ -1,0 +1,138 @@
+﻿# --------
+# OS-level junk
+# --------
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+
+# Linux
+*~
+
+# --------
+# IDEs & editors
+# --------
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+# Rider caches (if outside .idea)
+.jetbrains/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.code-workspace
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# --------
+# .NET / MSBuild outputs
+# --------
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+[Bb]enchmarkDotNet.Artifacts/
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+.nuget/
+# Packages folder (if used)
+packages/
+# Project.lock.json (old lock file)
+project.lock.json
+project.fragment.lock.json
+
+# Rider / ReSharper caches
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# ASP.NET / static web assets
+wwwroot/**/bundle-*.js
+wwwroot/**/bundle-*.css
+wwwroot/**/node_modules/
+
+# --------
+# Build intermediates & cache files
+# --------
+*.obj
+*.pdb
+*.exe
+*.dll
+*.mdb
+*.cache
+*.log
+*.tlog
+*.tmp
+*.tmp_proj
+*.svclog
+*.pidb
+*.vsp
+*.vspx
+*.psess
+*.scc
+
+# Rider/Roslyn/Analyzer caches
+*.ide/
+*.sarif
+
+# --------
+# Tooling
+# --------
+# Node/Yarn/PNPM (if frontend bits exist)
+node_modules/
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
+
+# Python virtual envs (rare, but safe)
+.venv/
+venv/
+
+env/
+
+# Docker / Compose override files (keep if you intentionally track them)
+# docker-compose.override.yml
+
+# --------
+# Other common noise
+# --------
+*.orig
+*.rej
+*.diff
+*.patch
+
+# Local settings & secrets (keep templates instead)
+*.local.json
+appsettings.Development.json
+appsettings.Local.json
+
+# If you generate coverage locally
+coverage/
+*.coverage
+*.coveragexml
+
+# If you export publish outputs
+publish/
+
+# Rider HTTP client scratch files
+.http/
+
+# Postman local artifacts (the checked-in collection is fine; ignore workspace cache)
+.postman/
