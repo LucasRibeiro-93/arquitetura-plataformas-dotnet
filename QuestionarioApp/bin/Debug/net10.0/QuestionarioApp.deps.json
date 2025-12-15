@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "QuestionarioApp/1.0.0": {
+        "runtime": {
+          "QuestionarioApp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuestionarioApp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

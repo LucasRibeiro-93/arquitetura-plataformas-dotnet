@@ -1,0 +1,55 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using QuestionarioApp.Models;
+using QuestionarioApp.Services;
+
+namespace QuestionarioApp.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AnswersController : ControllerBase
+{
+    private readonly IAnswerService _service;
+
+    public AnswersController(IAnswerService service)
+    {
+        _service = service;
+    }
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Answer>> GetAll() => Ok(_service.GetAll());
+
+    [HttpGet("{id:guid}")]
+    public ActionResult<Answer> GetById(Guid id)
+    {
+        var item = _service.GetById(id);
+        if (item is null) return NotFound();
+        return Ok(item);
+    }
+
+    [HttpGet("by-question/{questionId:guid}")]
+    public ActionResult<IEnumerable<Answer>> GetByQuestion(Guid questionId)
+        => Ok(_service.GetByQuestion(questionId));
+
+    [HttpPost]
+    public ActionResult<Answer> Create([FromBody] Answer input)
+    {
+        var created = _service.Create(input);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPut("{id:guid}")]
+    public IActionResult Update(Guid id, [FromBody] Answer input)
+    {
+        var ok = _service.Update(id, input);
+        if (!ok) return NotFound();
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult Delete(Guid id)
+    {
+        var ok = _service.Delete(id);
+        if (!ok) return NotFound();
+        return NoContent();
+    }
+}

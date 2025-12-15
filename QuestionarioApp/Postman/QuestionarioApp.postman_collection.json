@@ -1,0 +1,343 @@
+﻿{
+  "info": {
+    "name": "QuestionarioApp API",
+    "description": "Postman collection for all endpoints of QuestionarioApp, including CRUD APIs, admin reports, and demo seeding. Configure the collection variable `baseUrl` to your running server (e.g., http://localhost:5000).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    { "key": "questionnaireId", "value": "" },
+    { "key": "questionId", "value": "" },
+    { "key": "answerId", "value": "" },
+    { "key": "participantId", "value": "" },
+    { "key": "assignmentId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Seed Demo Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/seed/demo?reset=true&seed=42&questionnaires=3&questionsPerQuestionnaire=6&answersPerQuestion=4&participants=20&assignments=60&completionRate=0.7",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","admin","seed","demo"],
+              "query": [
+                { "key": "reset", "value": "true" },
+                { "key": "seed", "value": "42" },
+                { "key": "questionnaires", "value": "3" },
+                { "key": "questionsPerQuestionnaire", "value": "6" },
+                { "key": "answersPerQuestion", "value": "4" },
+                { "key": "participants", "value": "20" },
+                { "key": "assignments", "value": "60" },
+                { "key": "completionRate", "value": "0.7" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reports - All Questionnaires Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reports/questionnaires/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","admin","reports","questionnaires","summary"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reports - Summary by Questionnaire",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reports/questionnaires/{{questionnaireId}}/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","admin","reports","questionnaires","{{questionnaireId}}","summary"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Questionnaires",
+      "item": [
+        {
+          "name": "List Questionnaires",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Questionnaires", "host": ["{{baseUrl}}"], "path": ["api","Questionnaires"] } },
+          "response": []
+        },
+        {
+          "name": "Get Questionnaire by Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Questionnaires/{{questionnaireId}}", "host": ["{{baseUrl}}"], "path": ["api","Questionnaires","{{questionnaireId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Create Questionnaire",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Customer Satisfaction Survey\",\n  \"description\": \"Survey about our services\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Questionnaires", "host": ["{{baseUrl}}"], "path": ["api","Questionnaires"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "try {",
+                  "  const json = pm.response.json();",
+                  "  if (json && json.id) { pm.collectionVariables.set('questionnaireId', json.id); }",
+                  "} catch (e) {}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Questionnaire",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Updated Title\",\n  \"description\": \"Updated description\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Questionnaires/{{questionnaireId}}", "host": ["{{baseUrl}}"], "path": ["api","Questionnaires","{{questionnaireId}}"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Questionnaire",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/api/Questionnaires/{{questionnaireId}}", "host": ["{{baseUrl}}"], "path": ["api","Questionnaires","{{questionnaireId}}"] } },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "List Questions",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Questions", "host": ["{{baseUrl}}"], "path": ["api","Questions"] } },
+          "response": []
+        },
+        {
+          "name": "Get Question by Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Questions/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["api","Questions","{{questionId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Get Questions by Questionnaire",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Questions/by-questionnaire/{{questionnaireId}}", "host": ["{{baseUrl}}"], "path": ["api","Questions","by-questionnaire","{{questionnaireId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Create Question",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"questionnaireId\": \"{{questionnaireId}}\",\n  \"text\": \"How satisfied are you with our service?\",\n  \"order\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Questions", "host": ["{{baseUrl}}"], "path": ["api","Questions"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "try { const json = pm.response.json(); if (json && json.id) { pm.collectionVariables.set('questionId', json.id); } } catch (e) {}"
+              ] }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"text\": \"Updated question text\",\n  \"order\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Questions/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["api","Questions","{{questionId}}"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Question",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/api/Questions/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["api","Questions","{{questionId}}"] } },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Answers",
+      "item": [
+        {
+          "name": "List Answers",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Answers", "host": ["{{baseUrl}}"], "path": ["api","Answers"] } },
+          "response": []
+        },
+        {
+          "name": "Get Answer by Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Answers/{{answerId}}", "host": ["{{baseUrl}}"], "path": ["api","Answers","{{answerId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Get Answers by Question",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Answers/by-question/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["api","Answers","by-question","{{questionId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Create Answer",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"questionId\": \"{{questionId}}\",\n  \"text\": \"Very satisfied\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Answers", "host": ["{{baseUrl}}"], "path": ["api","Answers"] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "try { const json = pm.response.json(); if (json && json.id) { pm.collectionVariables.set('answerId', json.id); } } catch (e) {}"
+            ] } }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Answer",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"text\": \"Updated answer text\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Answers/{{answerId}}", "host": ["{{baseUrl}}"], "path": ["api","Answers","{{answerId}}"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Answer",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/api/Answers/{{answerId}}", "host": ["{{baseUrl}}"], "path": ["api","Answers","{{answerId}}"] } },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Participants",
+      "item": [
+        {
+          "name": "List Participants",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Participants", "host": ["{{baseUrl}}"], "path": ["api","Participants"] } },
+          "response": []
+        },
+        {
+          "name": "Get Participant by Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/Participants/{{participantId}}", "host": ["{{baseUrl}}"], "path": ["api","Participants","{{participantId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Create Participant",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Participants", "host": ["{{baseUrl}}"], "path": ["api","Participants"] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "try { const json = pm.response.json(); if (json && json.id) { pm.collectionVariables.set('participantId', json.id); } } catch (e) {}"
+            ] } }
+          ],
+          "response": []
+        },
+        {
+          "name": "Update Participant",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Jane D.\",\n  \"email\": \"jane.d@example.com\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/Participants/{{participantId}}", "host": ["{{baseUrl}}"], "path": ["api","Participants","{{participantId}}"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Participant",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/api/Participants/{{participantId}}", "host": ["{{baseUrl}}"], "path": ["api","Participants","{{participantId}}"] } },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "QuestionnaireAssignments",
+      "item": [
+        {
+          "name": "List Assignments",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments"] } },
+          "response": []
+        },
+        {
+          "name": "Get Assignment by Id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/{{assignmentId}}", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","{{assignmentId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Get Assignments by Participant",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/by-participant/{{participantId}}", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","by-participant","{{participantId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Get Assignments by Questionnaire",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/by-questionnaire/{{questionnaireId}}", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","by-questionnaire","{{questionnaireId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Create Assignment",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"questionnaireId\": \"{{questionnaireId}}\",\n  \"participantId\": \"{{participantId}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments"] }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "try { const json = pm.response.json(); if (json && json.id) { pm.collectionVariables.set('assignmentId', json.id); } } catch (e) {}"
+            ] } }
+          ],
+          "response": []
+        },
+        {
+          "name": "Submit Responses",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "[\n  { \"questionId\": \"{{questionId}}\", \"answerId\": \"{{answerId}}\" }\n]" },
+            "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/{{assignmentId}}/submit", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","{{assignmentId}}","submit"] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Assignment",
+          "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{ }" }, "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/{{assignmentId}}", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","{{assignmentId}}"] } },
+          "response": []
+        },
+        {
+          "name": "Delete Assignment",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/api/QuestionnaireAssignments/{{assignmentId}}", "host": ["{{baseUrl}}"], "path": ["api","QuestionnaireAssignments","{{assignmentId}}"] } },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
